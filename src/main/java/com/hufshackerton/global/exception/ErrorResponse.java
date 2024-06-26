@@ -21,7 +21,7 @@ public class ErrorResponse {
     private final int code;
     private final String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<ValidationError> errors;
+    private final List<ValidationError> errors;
 
     public static ErrorResponse of(HttpStatus httpStatus, int code, String message){
         return ErrorResponse.builder()
