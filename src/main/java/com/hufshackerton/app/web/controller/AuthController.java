@@ -23,17 +23,28 @@ public class AuthController {
     private final AuthCommandService authCommandService;
     private final SecurityUtil securityUtil;
 
+//    @PostMapping("/signup")
+//    public ResponseEntity<AuthResponse.signupDTO> signup(
+//            @Valid @RequestPart("data")AuthRequest.SignupDTO dto,
+//            @RequestPart("profileImage")MultipartFile multipartFile
+//            )
+//    {
+//        Member member = authCommandService.signup(dto, multipartFile);
+//        return ResponseEntity.ok(
+//                AuthResponse.signupDTO.builder().memberId(member.getId()).build()
+//        );
+//    }
+
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse.signupDTO> signup(
-            @Valid @RequestPart("data")AuthRequest.SignupDTO dto,
-            @RequestPart("profileImage")MultipartFile multipartFile
-            )
-    {
-        Member member = authCommandService.signup(dto, multipartFile);
+            @RequestBody @Valid AuthRequest.SignupDTO dto
+    ){
+        Member member = authCommandService.signup(dto);
         return ResponseEntity.ok(
                 AuthResponse.signupDTO.builder().memberId(member.getId()).build()
         );
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse.signupDTO> login(@RequestBody AuthRequest.loginDTO dto) {

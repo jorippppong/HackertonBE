@@ -24,15 +24,13 @@ public class AuthCommandService {
     private final SecurityUtil securityUtil;
 
     @Transactional
-    public Member signup(AuthRequest.SignupDTO dto, MultipartFile multipartFile) {
+    public Member signup(AuthRequest.SignupDTO dto) {
         log.info(dto.getPassword());
-        String url = s3Uploader.saveProfileImage(multipartFile);
         String password = securityUtil.hashPassword(dto.getPassword());
         Member newMember = Member.builder()
                 .email(dto.getEmail())
                 .nickname(dto.getNickname())
                 .password(password)
-                .profileImageUrl(url)
                 .build();
         return memberRepository.save(newMember);
     }
