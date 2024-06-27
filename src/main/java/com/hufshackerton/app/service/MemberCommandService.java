@@ -16,10 +16,7 @@ public class MemberCommandService {
 
     @Transactional
     public String modifyProfileImage(MultipartFile profileImage, Member member){
-        String url = "";
-        if(profileImage != null && !profileImage.isEmpty()){
-            url = s3Uploader.saveProfileImage(profileImage);
-        }
+        String url = s3Uploader.saveProfileImage(profileImage);
         member.modifyProfileImageUrl(url);
         return url;
     }
