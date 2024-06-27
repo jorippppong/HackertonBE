@@ -6,6 +6,7 @@ import com.hufshackerton.global.exception.ErrorCode;
 import com.hufshackerton.global.exception.RestApiException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,5 +21,13 @@ public class SecurityUtil {
         }
 
         return memberRepository.findById(Long.valueOf(memberId)).orElseThrow(() -> new RestApiException(ErrorCode.MEMBER_NOT_FOUND));
+    }
+
+    public String hashPassword(String password){
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public boolean checkPassword(String inputPassword, String hashedPassword){
+        return BCrypt.checkpw(inputPassword, hashedPassword);
     }
 }

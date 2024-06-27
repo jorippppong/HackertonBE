@@ -20,7 +20,7 @@ public enum ErrorCode {
 
     // 새로운 에러 코드 추가
     MISSING_MEMBER_HEADER_ERROR(HttpStatus.BAD_REQUEST, 400, "멤버Id 헤더가 없습니다."),
-
+    PASSWORD_WRONG(HttpStatus.BAD_REQUEST, 400, "비밀번호가 일치하지 않습니다."),
 
     // AUTH 200X
 
