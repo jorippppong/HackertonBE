@@ -1,6 +1,8 @@
 package com.hufshackerton.global.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.core.NestedExceptionUtils;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
@@ -48,6 +53,23 @@ public class ExceptionAdviceHandler {
                 e.getBindingResult());
         return ResponseEntity.status(errorCode.getHttpStatus()).body(errorResponse);
     }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity handleConstraintViolationException(ConstraintViolationException e){
+        // 전체 ConstraintViolation 세트를 가져옴
+        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+
+        // 각 ConstraintViolation에서 메시지 추출
+        String errorMessage = violations.stream()
+                .map(ConstraintViolation::getMessage) // 메시지만 추출
+                .collect(Collectors.joining(", ")); // 여러 메시지를 콤마로 구분하여 하나의 문자열로 결합
+
+        log.error("[ConstraintViolationException] cause: {}, message:{}", NestedExceptionUtils.getMostSpecificCause(e), errorMessage);
+        ErrorCode errorCode = ErrorCode.INVALID_ARGUMENT_ERROR;
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getHttpStatus(), errorCode.getCode(), errorMessage);
+        return ResponseEntity.status(errorCode.getHttpStatus()).body(errorResponse);
+    }
+
 
     // 파일 용량 초과
     @ExceptionHandler({FileSizeLimitExceededException.class, MaxUploadSizeExceededException.class})

@@ -26,6 +26,9 @@ public class S3Uploader {
 
     // 프로필 사진 저장
     public String saveProfileImage(MultipartFile file){
+        if(file == null || file.isEmpty()){
+            return "";
+        }
         return saveFile(file, PROFILE_IMG_DIR);
     }
 
