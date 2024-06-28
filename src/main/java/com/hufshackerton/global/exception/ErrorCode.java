@@ -29,7 +29,10 @@ public enum ErrorCode {
     // MEMBER 300X
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, 3001, "해당 멤버는 존재하지 않습니다."),
     NOT_VALID_PASSWORD(HttpStatus.BAD_REQUEST, 3002, "비밀번호는 영문, 숫자, 특수문자를 포함한 9~16글자여야 합니다."),
-    PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, 3003,"비밀번호가 일치하지 않습니다.");
+    PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, 3003,"비밀번호가 일치하지 않습니다."),
+
+    // MISSION 400x
+    ALREADY_EXIST_MISSION(HttpStatus.BAD_REQUEST, 4001, "이미 오늘의 미션이 존재합니다.");
 
 
 
