@@ -19,9 +19,10 @@ public class MissionResponse {
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class createMissionResponseDTO {
+    public static class CreateMissionResponseDTO {
         Long missionId;
         String content;
     }
 
 }
+

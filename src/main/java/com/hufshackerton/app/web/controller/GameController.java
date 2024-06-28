@@ -1,7 +1,7 @@
 package com.hufshackerton.app.web.controller;
 
 import com.hufshackerton.app.service.GameQueryService;
-import com.hufshackerton.app.web.dto.GameResponse;
+import com.hufshackerton.app.web.dto.response.GameResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

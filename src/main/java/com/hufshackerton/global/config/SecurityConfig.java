@@ -30,6 +30,7 @@ public class SecurityConfig {
 
     private final String[] allowedUrls = {"/auth/signup","/auth/login", "/missions/", "/game", "/rank/**" };
 
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web ->

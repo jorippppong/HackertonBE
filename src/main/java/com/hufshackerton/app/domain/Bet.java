@@ -22,7 +22,11 @@ public class Bet {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
+<<<<<<< HEAD
     private BaseballGame baseballGame;
+=======
+    private BaseballPlane baseballPlane;
+>>>>>>> 893126af94bd5151dcbcc2bd7cc13f7c1a6e5ace
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")

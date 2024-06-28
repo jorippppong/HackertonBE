@@ -1,11 +1,4 @@
-package com.hufshackerton.app.Converter;
-
-import com.hufshackerton.app.domain.BaseballGame;
-import com.hufshackerton.app.domain.Team;
-import com.hufshackerton.app.web.dto.GameResponse;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.hufshackerton.app.converter;
 
 public class GameConverter {
 //    public static GameResponse.GameScheduleDTO toGameScheduleDTO(List<BaseballGame> games){

@@ -4,7 +4,7 @@ import com.hufshackerton.app.domain.BaseballGame;
 import com.hufshackerton.app.domain.Team;
 import com.hufshackerton.app.repository.BaseballGameRepository;
 import com.hufshackerton.app.repository.BetRepository;
-import com.hufshackerton.app.web.dto.GameResponse;
+import com.hufshackerton.app.web.dto.response.GameResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
