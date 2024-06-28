@@ -1,10 +1,10 @@
 package com.hufshackerton.app.service;
 
-import com.hufshackerton.app.Converter.MemberConverter;
+import com.hufshackerton.app.converter.MemberConverter;
 import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.repository.MemberRepository;
-import com.hufshackerton.app.web.dto.AuthRequest;
-import com.hufshackerton.app.web.dto.AuthResponse;
+import com.hufshackerton.app.web.dto.request.AuthRequest;
+import com.hufshackerton.app.web.dto.response.AuthResponse;
 import com.hufshackerton.global.exception.ErrorCode;
 import com.hufshackerton.global.exception.RestApiException;
 import com.hufshackerton.global.file.S3Uploader;
@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.beans.factory.annotation.Value;
 
 @Service
 @RequiredArgsConstructor

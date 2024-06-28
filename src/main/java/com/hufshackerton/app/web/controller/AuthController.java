@@ -1,10 +1,10 @@
 package com.hufshackerton.app.web.controller;
 
-import com.hufshackerton.app.Converter.MemberConverter;
+import com.hufshackerton.app.converter.MemberConverter;
 import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.service.MemberCommandService;
-import com.hufshackerton.app.web.dto.AuthRequest;
-import com.hufshackerton.app.web.dto.AuthResponse;
+import com.hufshackerton.app.web.dto.request.AuthRequest;
+import com.hufshackerton.app.web.dto.response.AuthResponse;
 import com.hufshackerton.global.annotation.ExistEmail;
 import com.hufshackerton.global.annotation.ExistNickname;
 import com.hufshackerton.global.annotation.auth.AuthMember;
