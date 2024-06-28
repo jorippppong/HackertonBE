@@ -38,10 +38,10 @@ public class MissionController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "성공")
     })
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<MissionResponse.CreateMissionResponseDTO> createMission(
-            @RequestBody MissionRequest.createMissionRequestDTO requset) {
-        return ResponseEntity.ok(MissionConverter.toCreateMissionResponseDTO(missionCommandService.createMission(requset)));
+            @RequestBody MissionRequest.createMissionRequestDTO request) {
+        return ResponseEntity.ok(MissionConverter.toCreateMissionResponseDTO(missionCommandService.createMission(request)));
     }
 
 }
