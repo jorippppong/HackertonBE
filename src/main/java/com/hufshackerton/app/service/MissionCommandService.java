@@ -29,10 +29,6 @@ public class MissionCommandService {
         LocalDate today = LocalDate.now();
         LocalDateTime startOfDay = today.atStartOfDay();
 
-        if (memberMissionRepository.findMemberMissionByMember_Id(member.getId()).isPresent()) {
-            throw new RestApiException(ErrorCode.ALREADY_EXIST_MISSION);
-        }
-
         return memberMissionRepository
                 .findMemberMissionByMemberAndCreatedAtBetween(member, startOfDay, LocalDateTime.now())
                 .orElseGet(

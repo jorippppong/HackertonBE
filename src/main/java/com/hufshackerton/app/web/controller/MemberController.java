@@ -26,7 +26,7 @@ public class MemberController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "성공")
     })
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<MemberResponse.GetMemberDTO> getMission(@Parameter(hidden = true) @AuthMember Member member) {
         return ResponseEntity.ok(MemberConverter.toGetMember(memberQueryService.findMemberById(member.getId())));
     }

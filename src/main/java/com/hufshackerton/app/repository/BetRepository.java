@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BetRepository extends JpaRepository<Bet, Long> {
@@ -17,6 +18,8 @@ public interface BetRepository extends JpaRepository<Bet, Long> {
     List<Bet> findAllByMember_IdAndSuccessIsNotNull(Long memberId);
 
     Long countBetByBaseballGameDateAndTeam(LocalDate date, Team team);
+
     Long countBetByBaseballGameDateBetweenAndTeam(LocalDate startDate, LocalDate endDate, Team team);
 
+    Optional<Bet> findByBaseballGame_Id(Long baseballGameId);
 }
