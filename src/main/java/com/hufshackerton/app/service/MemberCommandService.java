@@ -73,4 +73,10 @@ public class MemberCommandService {
 
         return memberRepository.save(member);
     }
+
+    public String changePreferTeam(Member member, Long teamId){
+        Team team = teamRepository.findById(teamId).orElseThrow(() -> new RestApiException(ErrorCode.TEAM_NOT_FOUND));
+        member.setTeam(team);
+        return team.getImageUrl();
+    }
 }
