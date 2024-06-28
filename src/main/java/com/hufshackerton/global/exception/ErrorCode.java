@@ -23,9 +23,15 @@ public enum ErrorCode {
     PASSWORD_WRONG(HttpStatus.BAD_REQUEST, 400, "비밀번호가 일치하지 않습니다."),
 
     // AUTH 200X
+    ACCESS_DENIED(HttpStatus.FORBIDDEN, 2000,  "권한이 없습니다."),
+
 
     // MEMBER 300X
-    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, 3001, "해당 멤버는 존재하지 않습니다.");
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, 3001, "해당 멤버는 존재하지 않습니다."),
+    NOT_VALID_PASSWORD(HttpStatus.BAD_REQUEST, 3002, "비밀번호는 영문, 숫자, 특수문자를 포함한 9~16글자여야 합니다."),
+    PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, 3003,"비밀번호가 일치하지 않습니다.");
+
+
 
     private final HttpStatus httpStatus;
     private final int code;
