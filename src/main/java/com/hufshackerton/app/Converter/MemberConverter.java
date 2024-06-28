@@ -1,9 +1,9 @@
-package com.hufshackerton.app.Converter;
+package com.hufshackerton.app.converter;
 
 import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.domain.Password;
-import com.hufshackerton.app.web.dto.AuthRequest;
-import com.hufshackerton.app.web.dto.AuthResponse;
+import com.hufshackerton.app.web.dto.request.AuthRequest;
+import com.hufshackerton.app.web.dto.response.AuthResponse;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

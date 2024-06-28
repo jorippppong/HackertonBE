@@ -1,5 +1,6 @@
 package com.hufshackerton.app.domain.mapping;
 
+import com.hufshackerton.app.domain.BaseEntity;
 import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.domain.Mission;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class MemberMission {
+public class MemberMission extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
