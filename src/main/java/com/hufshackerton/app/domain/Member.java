@@ -30,6 +30,9 @@ public class Member extends BaseEntity{
     @Builder.Default
     private Integer point = 0;
 
+    @Builder.Default
+    private Integer accumulateDonatePoint = 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
@@ -40,4 +43,11 @@ public class Member extends BaseEntity{
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Bet> betList = new ArrayList<>();
 
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
+
+    public void setAccumulateDonatePoint(Integer accumulateDonatePoint) {
+        this.accumulateDonatePoint = accumulateDonatePoint;
+    }
 }
