@@ -7,6 +7,10 @@ import com.hufshackerton.app.web.dto.AuthResponse;
 import com.hufshackerton.global.annotation.ExistEmail;
 import com.hufshackerton.global.annotation.ExistNickname;
 import com.hufshackerton.global.util.SecurityUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +58,17 @@ public class AuthController {
         );
     }
 
+    @Operation(summary = "회원 탈퇴",
+            description = "회원 탈퇴 API",
+            parameters = {
+                    @Parameter(
+                            name = "memberId",
+                            description = "사용자의 ID",
+                            required = true,
+                            in = ParameterIn.HEADER,
+                            schema = @Schema(type = "string")
+                    )
+            })
     @DeleteMapping("/termination")
     public ResponseEntity removeMember(
             HttpServletRequest request
