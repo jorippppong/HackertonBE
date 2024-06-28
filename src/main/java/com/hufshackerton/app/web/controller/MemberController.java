@@ -20,29 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/my")
 @RequiredArgsConstructor
 public class MemberController {
-    private final SecurityUtil securityUtil;
-    private final MemberCommandService memberCommandService;
 
-    @Operation(summary = "프로필 사진 변경 API",
-            parameters = {
-                    @Parameter(
-                            name = "memberId",
-                            description = "사용자의 ID",
-                            required = true,
-                            in = ParameterIn.HEADER,
-                            schema = @Schema(type = "string")
-                    )
-            })
-    @PatchMapping("/profileImage")
-    public ResponseEntity<MemberResponse.ModifyProfileImageDTO> modifyProfileImage(
-            @RequestPart("profileImage")MultipartFile profileImage,
-            HttpServletRequest request)
-    {
-        Member member = securityUtil.getMemberFromHeader(request);
-        String profileImageUrl = memberCommandService.modifyProfileImage(profileImage, member);
-        return ResponseEntity.ok(
-                MemberResponse.ModifyProfileImageDTO.builder()
-                        .profileImageUrl(profileImageUrl).build()
-        );
-    }
+
 }
