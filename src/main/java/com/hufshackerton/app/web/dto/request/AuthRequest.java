@@ -1,4 +1,4 @@
-package com.hufshackerton.app.web.dto;
+package com.hufshackerton.app.web.dto.request;
 
 import com.hufshackerton.global.annotation.ExistEmail;
 import com.hufshackerton.global.annotation.ExistNickname;

@@ -1,4 +1,4 @@
-package com.hufshackerton.app.web.dto;
+package com.hufshackerton.app.web.dto.response;
 
 import lombok.*;
 
