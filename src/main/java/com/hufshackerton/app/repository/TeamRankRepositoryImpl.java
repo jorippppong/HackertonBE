@@ -1,6 +1,7 @@
 package com.hufshackerton.app.repository;
 
 import com.hufshackerton.app.web.dto.repo.SimpleTeamInfo;
+import com.hufshackerton.app.web.dto.repo.TeamDonationInfo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
@@ -28,4 +29,18 @@ public class TeamRankRepositoryImpl implements TeamRankRepository{
                 .setParameter("endDate", endDate)
                 .getResultList();
     }
+
+    @Override
+    public List<TeamDonationInfo> sortTeamByDonation() {
+        return em.createQuery(
+                "select new com.hufshackerton.app.web.dto.repo.TeamDonationInfo(0, t.imageUrl, sum(m.accumulateDonatePoint))"+
+                        " from Team t"+
+                        " left outer join Member m"+
+                        " on m.team = t"+
+                        " group by t.id"+
+                        " order by sum(m.accumulateDonatePoint) desc", TeamDonationInfo.class)
+                .getResultList();
+    }
+
+
 }

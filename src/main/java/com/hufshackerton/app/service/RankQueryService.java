@@ -5,6 +5,7 @@ import com.hufshackerton.app.domain.Team;
 import com.hufshackerton.app.repository.*;
 import com.hufshackerton.app.web.dto.repo.SimpleMemberInfo;
 import com.hufshackerton.app.web.dto.repo.SimpleTeamInfo;
+import com.hufshackerton.app.web.dto.repo.TeamDonationInfo;
 import com.hufshackerton.app.web.dto.response.RankResponse;
 import com.hufshackerton.global.exception.ErrorCode;
 import com.hufshackerton.global.exception.RestApiException;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @Transactional(readOnly = true)
@@ -62,6 +64,7 @@ public class RankQueryService {
             Member member = memberRepository.findById(m.getMemberId()).orElseThrow(() -> new RestApiException(ErrorCode.MEMBER_NOT_FOUND));
             RankResponse.MemberRankInfo memberDtoInfo = RankResponse.MemberRankInfo.builder()
                     .rank(rank)
+                    .nickname(member.getNickname())
                     .logoUrl(member.getTeam().getImageUrl())
                     .completeMission(m.getCompleteMissions())
                     .totalVote(betRepository.countBetByBaseballGameDateBetweenAndTeam(firstDayOfMonth, lastDayOfMonth, member.getTeam()))
@@ -72,5 +75,14 @@ public class RankQueryService {
 
         return RankResponse.getMemberByMission.builder().user(memberRankInfos).build();
     }
+
+    public RankResponse.getTeamByDonation getTeamByDonation(){
+        List<TeamDonationInfo> teamDonationInfos = teamRankRepository.sortTeamByDonation();
+        for(int i=0; i<teamDonationInfos.size(); i++){
+            teamDonationInfos.get(i).setRank(i+1);
+        }
+        return RankResponse.getTeamByDonation.builder().teams(teamDonationInfos).build();
+    }
+
 
 }
