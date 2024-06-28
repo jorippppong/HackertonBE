@@ -9,4 +9,12 @@ public class MemberResponse {
     public static class ModifyProfileImageDTO{
         private String profileImageUrl;
     }
+
+    @Getter
+    @Builder
+    public static class GetMemberDTO {
+        String nickname;
+        String email;
+        Integer point;
+    }
 }
