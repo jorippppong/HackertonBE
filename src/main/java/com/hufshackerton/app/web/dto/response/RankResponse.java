@@ -1,5 +1,6 @@
 package com.hufshackerton.app.web.dto.response;
 
+import com.hufshackerton.app.web.dto.repo.TeamDonationInfo;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -33,9 +34,24 @@ public class RankResponse {
     @Builder
     public static class MemberRankInfo{
         private Integer rank;
+        private String nickname;
         private String logoUrl;
         private Long completeMission;
         private Long totalVote;
     }
+
+    @Getter
+    @Builder
+    public static class getTeamByDonation{
+        private List<TeamDonationInfo> teams;
+    }
+
+//    @Getter
+//    @Builder
+//    public static class TeamDonationInfo{
+//        private Long rank;
+//        private String logoUrl;
+//        private Long point;
+//    }
 
 }

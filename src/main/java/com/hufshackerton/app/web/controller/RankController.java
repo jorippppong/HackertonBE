@@ -2,6 +2,7 @@ package com.hufshackerton.app.web.controller;
 
 import com.hufshackerton.app.service.RankQueryService;
 import com.hufshackerton.app.web.dto.response.RankResponse;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,5 +33,12 @@ public class RankController {
         RankResponse.getMemberByMission dto = rankQueryService.getMemberByMission(localDate);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/team/donation")
+    public ResponseEntity<RankResponse.getTeamByDonation> getTeamByDonation(){
+        RankResponse.getTeamByDonation dto = rankQueryService.getTeamByDonation();
+        return ResponseEntity.ok(dto);
+    }
+
 
 }
