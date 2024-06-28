@@ -23,10 +23,10 @@ public class Team extends BaseEntity{
     private String imageUrl;
 
     @OneToMany(mappedBy = "homeTeam", cascade = CascadeType.ALL)
-    private List<BaseballPlane> homeBaseballPlaneList = new ArrayList<>();
+    private List<BaseballGame> homeBaseballGameList = new ArrayList<>();
 
     @OneToMany(mappedBy = "awayTeam", cascade = CascadeType.ALL)
-    private List<BaseballPlane> awayBaseballPlaneList = new ArrayList<>();
+    private List<BaseballGame> awayBaseballGameList = new ArrayList<>();
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Member> memberList = new ArrayList<>();
