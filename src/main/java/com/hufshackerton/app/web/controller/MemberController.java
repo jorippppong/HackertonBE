@@ -50,5 +50,16 @@ public class MemberController {
         return ResponseEntity.ok(MemberConverter.toGetMyPoint(memberCommandService.donatePoint(member, donateId)));
     }
 
+    @PatchMapping("/preferTeam")
+    public ResponseEntity<MemberResponse.changePreferTeamDTO> changePreferTeam(
+            @Parameter(hidden = true) @AuthMember Member member,
+            @RequestParam("teamId") Long teamId
+    ){
+        String url = memberCommandService.changePreferTeam(member, teamId);
+        return ResponseEntity.ok(
+                MemberResponse.changePreferTeamDTO.builder().teamUrl(url).build()
+        );
+    }
+
 
 }
