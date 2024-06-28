@@ -27,8 +27,4 @@ public class MemberQueryService {
                 .findById(memberId)
                 .orElseThrow(() -> new RestApiException(ErrorCode.MEMBER_NOT_FOUND));
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 893126af94bd5151dcbcc2bd7cc13f7c1a6e5ace
 }
