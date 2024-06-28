@@ -26,11 +26,6 @@ public class MemberCommandService {
     private final JwtAuthProvider jwtAuthProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public String modifyProfileImage(MultipartFile profileImage, Member member){
-        String url = s3Uploader.saveProfileImage(profileImage);
-        member.modifyProfileImageUrl(url);
-        return url;
-    }
 
     public Member signUpMember(AuthRequest.SignupDTO request) {
         return memberRepository.save(MemberConverter.toMember(request));

@@ -1,7 +1,11 @@
 package com.hufshackerton.app.domain;
 
+import com.hufshackerton.app.domain.mapping.MemberMission;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,9 +27,14 @@ public class Member extends BaseEntity{
     @Embedded
     private Password password;
 
-    private String profileImageUrl;
+    @Builder.Default
+    private Integer point = 0;
 
-    public void modifyProfileImageUrl(String url){
-        this.profileImageUrl = url;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    @OneToMany(mappedBy = "member_id", cascade = CascadeType.ALL)
+    private List<MemberMission> memberMissionList = new ArrayList<>();
+
 }
