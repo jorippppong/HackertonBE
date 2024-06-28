@@ -34,6 +34,9 @@ public enum ErrorCode {
 
     // MISSION 400x
     ALREADY_EXIST_MISSION(HttpStatus.BAD_REQUEST, 4001, "이미 오늘의 미션이 존재합니다."),
+    MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, 4002, "미션이 존재하지 않습니다."),
+    MISSION_ALREADY_ACCOMPLISHED(HttpStatus.BAD_REQUEST, 4003, "이미 미션을 완료 했스빈다"),
+    MISSION_ANALYSIS_FAILED(HttpStatus.BAD_REQUEST, 4004, "미션 사진 분석에 실패했습니다."),
 
     // DONATE 500x
     NOT_EXIST_DONATE(HttpStatus.BAD_REQUEST, 5001, "존재하지 않는 기부입니다."),

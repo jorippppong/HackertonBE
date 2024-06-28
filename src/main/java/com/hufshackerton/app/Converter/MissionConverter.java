@@ -36,4 +36,8 @@ public class MissionConverter {
                 .build();
     }
 
+    public static MissionResponse.MissionResultDto toMissionResultDto(MemberMission memberMission) {
+        return MissionResponse.MissionResultDto.builder().isCompleted(memberMission.getIsCompleted()).build();
+    }
+
 }
