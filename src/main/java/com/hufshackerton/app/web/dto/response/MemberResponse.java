@@ -17,4 +17,10 @@ public class MemberResponse {
         String email;
         Integer point;
     }
+
+    @Getter
+    @Builder
+    public static class GetMemberWinningRateDTO {
+        String winningRate;
+    }
 }

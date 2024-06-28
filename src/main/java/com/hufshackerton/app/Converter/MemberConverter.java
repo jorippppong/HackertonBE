@@ -47,4 +47,10 @@ public class MemberConverter {
                 .build();
     }
 
+    public static MemberResponse.GetMemberWinningRateDTO toGetMemberWinningRate(String winningRate) {
+        return MemberResponse.GetMemberWinningRateDTO.builder()
+                .winningRate(winningRate)
+                .build();
+    }
+
 }
