@@ -50,4 +50,6 @@ public class Member extends BaseEntity{
     public void setAccumulateDonatePoint(Integer accumulateDonatePoint) {
         this.accumulateDonatePoint = accumulateDonatePoint;
     }
+
+    public void setTeam(Team team){this.team = team;}
 }

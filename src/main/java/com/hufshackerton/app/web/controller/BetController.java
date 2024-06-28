@@ -26,7 +26,7 @@ public class BetController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "성공")
     })
-    @PostMapping("/{baseballGameId}/{teamId}")
+    @PostMapping()
     public ResponseEntity<BetResponse.createBetResponseDTO> createBet(@Parameter(hidden = true) @AuthMember Member member, @RequestParam(name = "baseballGameId") Long baseballGameId, @RequestParam(name = "teamId") Long teamId) {
         return ResponseEntity.ok(BetConverter.toCreateBetResponse(betCommandService.createBet(member, baseballGameId, teamId)));
     }

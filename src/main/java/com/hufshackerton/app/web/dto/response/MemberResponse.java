@@ -30,4 +30,10 @@ public class MemberResponse {
         Integer myPoint;
         Integer accumulateDonatePoint;
     }
+
+    @Getter
+    @Builder
+    public static class changePreferTeamDTO{
+        private String teamUrl;
+    }
 }
