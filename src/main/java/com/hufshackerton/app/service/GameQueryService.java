@@ -27,6 +27,7 @@ public class GameQueryService {
                         game.stream().map(
                                 g -> GameResponse.GameInfo.builder()
                                         .place(g.getLocation())
+                                        .gameId(g.getId())
                                         .teams(toTeamInfos(g, localDate))
                                         .build()
                                 ).toList()
@@ -47,6 +48,7 @@ public class GameQueryService {
     private GameResponse.TeamInfo toTeamInfo(Team team, boolean isHome, LocalDate date){
         return GameResponse.TeamInfo.builder()
                 .name(team.getName())
+                .teamId(team.getId())
                 .logoUrl(team.getImageUrl())
                 .vote(getTodayTeamVotes(team, date))
                 .isHome(isHome)
