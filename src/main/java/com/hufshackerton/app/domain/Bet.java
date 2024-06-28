@@ -22,7 +22,8 @@ public class Bet {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
-    private BaseballPlane baseballPlane;
+    private BaseballGame baseballGame;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
