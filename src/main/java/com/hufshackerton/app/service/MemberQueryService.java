@@ -28,8 +28,4 @@ public class MemberQueryService {
                 .orElseThrow(() -> new RestApiException(ErrorCode.MEMBER_NOT_FOUND));
     }
 
-    public Boolean isDuplicateEmail(String email) {
-        return !memberRepository.findByEmail(email).isPresent();
-    }
-
 }

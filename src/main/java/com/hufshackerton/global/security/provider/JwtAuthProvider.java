@@ -49,7 +49,7 @@ public class JwtAuthProvider {
                 .setSubject(userId.toString())
                 .setIssuedAt(Date.from(now.toInstant()))
                 .setExpiration(Date.from(tokenValidity.toInstant()))
-                .setIssuer("CapStone")
+                .setIssuer("Hack")
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }

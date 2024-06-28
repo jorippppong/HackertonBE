@@ -2,48 +2,28 @@ package com.hufshackerton.app.web.controller;
 
 import com.hufshackerton.app.Converter.MemberConverter;
 import com.hufshackerton.app.domain.Member;
-import com.hufshackerton.app.service.AuthCommandService;
 import com.hufshackerton.app.service.MemberCommandService;
 import com.hufshackerton.app.web.dto.AuthRequest;
 import com.hufshackerton.app.web.dto.AuthResponse;
 import com.hufshackerton.global.annotation.ExistEmail;
 import com.hufshackerton.global.annotation.ExistNickname;
-import com.hufshackerton.global.util.SecurityUtil;
+import com.hufshackerton.global.annotation.auth.AuthMember;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @Validated
 public class AuthController {
-    private final AuthCommandService authCommandService;
-    private final SecurityUtil securityUtil;
     private final MemberCommandService memberCommandService;
-
-//    @PostMapping("/signup")
-//    public ResponseEntity<AuthResponse.signupDTO> signup(
-//            @Valid @RequestPart("data")AuthRequest.SignupDTO dto,
-//            @RequestPart("profileImage")MultipartFile multipartFile
-//            )
-//    {
-//        Member member = authCommandService.signup(dto, multipartFile);
-//        return ResponseEntity.ok(
-//                AuthResponse.signupDTO.builder().memberId(member.getId()).build()
-//        );
-//    }
 
     @Operation(summary = "회원가입 API", description = "회원가입을 진행합니다")
     @ApiResponses({
@@ -57,7 +37,6 @@ public class AuthController {
     }
 
 
-
     @Operation(summary = "로그인 API", description = "이메일, 비밀번호를 사용한 로그인을 진행합니다")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "성공"),
@@ -68,24 +47,11 @@ public class AuthController {
         return ResponseEntity.ok(memberCommandService.login(request));
     }
 
-    @Operation(summary = "회원 탈퇴",
-            description = "회원 탈퇴 API",
-            parameters = {
-                    @Parameter(
-                            name = "memberId",
-                            description = "사용자의 ID",
-                            required = true,
-                            in = ParameterIn.HEADER,
-                            schema = @Schema(type = "string")
-                    )
-            })
-    @DeleteMapping("/termination")
-    public ResponseEntity removeMember(
-            HttpServletRequest request
-    ){
-        Member member = securityUtil.getMemberFromHeader(request);
-        authCommandService.removeMember(member);
-        return ResponseEntity.ok().build();
+    @Operation(summary = "회원 탈퇴 API", description = "회원을 탈퇴시킵니다.")
+    @ApiResponse(responseCode = "201", description = "성공")
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteMember(@Parameter(hidden = true) @AuthMember Member member) {
+        return ResponseEntity.ok(memberCommandService.deleteMember(member));
     }
 
     @GetMapping("/check-email")
@@ -101,9 +67,5 @@ public class AuthController {
     ){
         return ResponseEntity.ok().build();
     }
-
-
-
-
 
 }
