@@ -1,6 +1,9 @@
 package com.hufshackerton.app.service;
 
+import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.repository.MemberRepository;
+import com.hufshackerton.global.exception.ErrorCode;
+import com.hufshackerton.global.exception.RestApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +20,16 @@ public class MemberQueryService {
 
     public boolean existByNickname(String nickname){
         return memberRepository.existsByNickname(nickname);
+    }
+
+    public Member findMemberById(Long memberId) {
+        return memberRepository
+                .findById(memberId)
+                .orElseThrow(() -> new RestApiException(ErrorCode.MEMBER_NOT_FOUND));
+    }
+
+    public Boolean isDuplicateEmail(String email) {
+        return !memberRepository.findByEmail(email).isPresent();
     }
 
 }
