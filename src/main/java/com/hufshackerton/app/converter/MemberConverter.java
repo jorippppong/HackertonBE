@@ -2,6 +2,7 @@ package com.hufshackerton.app.converter;
 
 import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.domain.Password;
+import com.hufshackerton.app.domain.Team;
 import com.hufshackerton.app.web.dto.request.AuthRequest;
 import com.hufshackerton.app.web.dto.response.AuthResponse;
 import com.hufshackerton.app.web.dto.response.MemberResponse;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberConverter {
 
-    public static Member toMember(AuthRequest.SignupDTO request) {
+    public static Member toMember(AuthRequest.SignupDTO request, Team team) {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -19,6 +20,7 @@ public class MemberConverter {
                 .nickname(request.getNickname())
                 .email(request.getEmail())
                 .password(Password.encrypt(request.getPassword(), encoder))
+                .team(team)
                 .build();
     }
 
