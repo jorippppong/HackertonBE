@@ -9,7 +9,7 @@ public class MissionResponse {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MissionResponseDTO {
-        Long missionId;
+        Long memberMissionId;
         String content;
         Boolean isCompleted;
         String imageUrl;

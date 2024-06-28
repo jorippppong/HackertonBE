@@ -16,7 +16,7 @@ public class MissionConverter {
 
     public static MissionResponse.MissionResponseDTO toMissionResponse(MemberMission memberMission) {
         return MissionResponse.MissionResponseDTO.builder()
-                .missionId(memberMission.getId())
+                .memberMissionId(memberMission.getId())
                 .content(memberMission.getMission().getContent())
                 .isCompleted(memberMission.getIsCompleted())
                 .imageUrl(memberMission.getImageUrl())
