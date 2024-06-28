@@ -29,8 +29,8 @@ public class MissionConverter {
                 .build();
     }
 
-    public static MissionResponse.createMissionResponseDTO toCreateMissionResponseDTO(Mission mission) {
-        return MissionResponse.createMissionResponseDTO.builder()
+    public static MissionResponse.CreateMissionResponseDTO toCreateMissionResponseDTO(Mission mission) {
+        return MissionResponse.CreateMissionResponseDTO.builder()
                 .missionId(mission.getId())
                 .content(mission.getContent())
                 .build();
