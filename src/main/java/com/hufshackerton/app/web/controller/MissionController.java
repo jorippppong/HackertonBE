@@ -2,6 +2,7 @@ package com.hufshackerton.app.web.controller;
 
 import com.hufshackerton.app.converter.MissionConverter;
 import com.hufshackerton.app.domain.Member;
+import com.hufshackerton.app.domain.mapping.MemberMission;
 import com.hufshackerton.app.service.MissionCommandService;
 import com.hufshackerton.app.web.dto.request.MissionRequest;
 import com.hufshackerton.app.web.dto.response.MissionResponse;
@@ -12,8 +13,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,6 +46,21 @@ public class MissionController {
     public ResponseEntity<MissionResponse.CreateMissionResponseDTO> createMission(
             @RequestBody MissionRequest.createMissionRequestDTO request) {
         return ResponseEntity.ok(MissionConverter.toCreateMissionResponseDTO(missionCommandService.createMission(request)));
+    }
+
+    @Operation(summary = "미션 수행 API", description = "미션 수행 사진을 받아 수행 여부를 결정합니다.")
+    @ApiResponse(description = "성공", responseCode = "201")
+    @PostMapping(
+            value = "/{missionId}/completed",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<MissionResponse.MissionResultDto> accomplishMission(
+            @Parameter(hidden = true) @AuthMember Member member,
+            @PathVariable("missionId") Long missionId,
+            @RequestPart("image") MultipartFile missionImage) {
+        MemberMission memberMission =
+                missionCommandService.accomplishMission(member, missionId, missionImage);
+        return ResponseEntity.ok(MissionConverter.toMissionResultDto(memberMission));
     }
 
 }
