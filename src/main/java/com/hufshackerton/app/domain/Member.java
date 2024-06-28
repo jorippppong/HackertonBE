@@ -20,7 +20,8 @@ public class Member extends BaseEntity{
     private String nickname;
 
     @Column(nullable = false)
-    private String password;
+    @Embedded
+    private Password password;
 
     private String profileImageUrl;
 

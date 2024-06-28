@@ -22,7 +22,7 @@ public class AuthRequest {
 
     @Getter
     @Builder
-    public static class loginDTO{
+    public static class LoginDTO{
         @NotBlank
         private String nickname;
         @NotBlank
