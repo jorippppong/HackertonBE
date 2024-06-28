@@ -20,22 +20,17 @@ import org.springframework.beans.factory.annotation.Value;
 @RequiredArgsConstructor
 @Transactional
 public class MemberCommandService {
+
     private final MemberRepository memberRepository;
     private final S3Uploader s3Uploader;
     private final JwtAuthProvider jwtAuthProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final MemberQueryService memberQueryService;
 
     public String modifyProfileImage(MultipartFile profileImage, Member member){
         String url = s3Uploader.saveProfileImage(profileImage);
         member.modifyProfileImageUrl(url);
         return url;
     }
-
-
-    @Value("${jwt.refresh-token-validity}")
-    private Long refreshTokenValidityMilliseconds;
-
 
     public Member signUpMember(AuthRequest.SignupDTO request) {
         return memberRepository.save(MemberConverter.toMember(request));
@@ -55,5 +50,15 @@ public class MemberCommandService {
         String refreshToken = jwtAuthProvider.generateRefreshToken(member.getId());
 
         return MemberConverter.toLoginMemberResponse(member.getId(), accessToken, refreshToken);
+    }
+
+    public String deleteMember(Member member) {
+        System.out.println(member.getId());
+        try {
+            memberRepository.delete(member);
+            return "삭제완료";
+        } catch (RestApiException e) {
+            throw new RestApiException(ErrorCode.MEMBER_NOT_FOUND);
+        }
     }
 }
