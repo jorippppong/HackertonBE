@@ -53,4 +53,11 @@ public class MemberConverter {
                 .build();
     }
 
+    public static MemberResponse.GetMyPointDTO toGetMyPoint(Member member) {
+        return MemberResponse.GetMyPointDTO.builder()
+                .myPoint(member.getPoint())
+                .accumulateDonatePoint(member.getAccumulateDonatePoint())
+                .build();
+    }
+
 }

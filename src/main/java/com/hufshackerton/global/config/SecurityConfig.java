@@ -28,7 +28,7 @@ public class SecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
     private final JwtAuthExceptionHandlingFilter jwtAuthExceptionHandlingFilter;
 
-    private final String[] allowedUrls = {"/auth/signup","/auth/login", "/missions/", "/game", "/rank/**" };
+    private final String[] allowedUrls = {"/auth/check-nickname","/auth/check-email","/auth/signup","/auth/login", "/missions/", "/game", "/rank/**" };
 
 
     @Bean

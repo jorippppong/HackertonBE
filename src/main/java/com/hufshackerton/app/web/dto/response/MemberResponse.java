@@ -23,4 +23,11 @@ public class MemberResponse {
     public static class GetMemberWinningRateDTO {
         String winningRate;
     }
+
+    @Getter
+    @Builder
+    public static class GetMyPointDTO {
+        Integer myPoint;
+        Integer accumulateDonatePoint;
+    }
 }
