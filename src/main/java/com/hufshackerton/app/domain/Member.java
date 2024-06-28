@@ -34,7 +34,10 @@ public class Member extends BaseEntity{
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToMany(mappedBy = "member_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Bet> betList = new ArrayList<>();
 
 }

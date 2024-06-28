@@ -20,7 +20,17 @@ public class Team extends BaseEntity{
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "team_id", cascade = CascadeType.ALL)
+    private String imageUrl;
+
+    @OneToMany(mappedBy = "homeTeam", cascade = CascadeType.ALL)
+    private List<BaseballPlane> homeBaseballPlaneList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "awayTeam", cascade = CascadeType.ALL)
+    private List<BaseballPlane> awayBaseballPlaneList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Member> memberList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    private List<Bet> betList = new ArrayList<>();
 }
