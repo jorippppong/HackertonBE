@@ -36,7 +36,16 @@ public enum ErrorCode {
     ALREADY_EXIST_MISSION(HttpStatus.BAD_REQUEST, 4001, "이미 오늘의 미션이 존재합니다."),
 
     // DONATE 500x
-    NOT_EXIST_DONATE(HttpStatus.BAD_REQUEST, 5001, "존재하지 않는 기부입니다.");
+    NOT_EXIST_DONATE(HttpStatus.BAD_REQUEST, 5001, "존재하지 않는 기부입니다."),
+
+    // BET 600x
+    ALREADY_BET_GAME(HttpStatus.BAD_REQUEST, 6001, "이미 배팅한 경기입니다."),
+
+    // BASEBALLGAME 700x
+    NOT_EXIST_GAME(HttpStatus.BAD_REQUEST, 7001, "존재하지 않는 게임입니다."),
+
+    // TEAM 800x
+    NOT_EXIST_TEAM(HttpStatus.BAD_REQUEST, 8001, "존재하지 않는 팀입니다.");
 
 
 
