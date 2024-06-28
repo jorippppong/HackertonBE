@@ -1,10 +1,13 @@
 package com.hufshackerton.app.service;
 
 import com.hufshackerton.app.converter.MemberConverter;
+import com.hufshackerton.app.domain.Donate;
 import com.hufshackerton.app.domain.Member;
+import com.hufshackerton.app.repository.DonateRepository;
 import com.hufshackerton.app.repository.MemberRepository;
 import com.hufshackerton.app.web.dto.request.AuthRequest;
 import com.hufshackerton.app.web.dto.response.AuthResponse;
+import com.hufshackerton.app.web.dto.response.MemberResponse;
 import com.hufshackerton.global.exception.ErrorCode;
 import com.hufshackerton.global.exception.RestApiException;
 import com.hufshackerton.global.file.S3Uploader;
@@ -20,10 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberCommandService {
 
     private final MemberRepository memberRepository;
-    private final S3Uploader s3Uploader;
     private final JwtAuthProvider jwtAuthProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    private final DonateRepository donateRepository;
 
     public Member signUpMember(AuthRequest.SignupDTO request) {
         return memberRepository.save(MemberConverter.toMember(request));
@@ -46,12 +48,25 @@ public class MemberCommandService {
     }
 
     public String deleteMember(Member member) {
-        System.out.println(member.getId());
         try {
             memberRepository.delete(member);
             return "삭제완료";
         } catch (RestApiException e) {
             throw new RestApiException(ErrorCode.MEMBER_NOT_FOUND);
         }
+    }
+
+    public Member donatePoint(Member member, Long donateId) {
+        Donate donate = donateRepository.findById(donateId)
+                .orElseThrow(() -> new RestApiException(ErrorCode.NOT_EXIST_DONATE));
+
+        if (member.getPoint() < donate.getPrice()) {
+            throw new RestApiException(ErrorCode.NOT_ENOUGH_POINT);
+        }
+
+        member.setPoint(member.getPoint() - donate.getPrice());
+        member.setAccumulateDonatePoint(member.getAccumulateDonatePoint() + donate.getPrice());
+
+        return memberRepository.save(member);
     }
 }
