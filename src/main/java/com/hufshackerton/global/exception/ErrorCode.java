@@ -35,6 +35,9 @@ public enum ErrorCode {
     // MISSION 400x
     ALREADY_EXIST_MISSION(HttpStatus.BAD_REQUEST, 4001, "이미 오늘의 미션이 존재합니다."),
 
+
+    // TEAM 500X
+    TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, 5001, "해당 팀은 존재하지 않습니다."),
     // DONATE 500x
     NOT_EXIST_DONATE(HttpStatus.BAD_REQUEST, 5001, "존재하지 않는 기부입니다."),
 

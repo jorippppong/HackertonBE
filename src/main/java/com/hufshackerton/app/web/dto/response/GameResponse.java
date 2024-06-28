@@ -17,6 +17,7 @@ public class GameResponse {
     @Builder
     public static class GameInfo{
         private String place;
+        private Long gameId;
         private List<TeamInfo> teams;
     }
 
@@ -24,6 +25,7 @@ public class GameResponse {
     @Builder
     public static class TeamInfo{
         private String name;
+        private Long teamId;
         private String logoUrl;
         private Long vote;
         private Boolean isHome;
