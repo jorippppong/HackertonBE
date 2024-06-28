@@ -56,7 +56,7 @@ public class MissionController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<MissionResponse.MissionResultDto> accomplishMission(
             @Parameter(hidden = true) @AuthMember Member member,
-            @PathVariable("missionId") Long missionId,
+            @PathVariable("membermissionId") Long missionId,
             @RequestPart("image") MultipartFile missionImage) {
         MemberMission memberMission =
                 missionCommandService.accomplishMission(member, missionId, missionImage);
