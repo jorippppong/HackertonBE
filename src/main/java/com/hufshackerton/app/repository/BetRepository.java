@@ -21,5 +21,5 @@ public interface BetRepository extends JpaRepository<Bet, Long> {
 
     Long countBetByBaseballGameDateBetweenAndTeam(LocalDate startDate, LocalDate endDate, Team team);
 
-    Optional<Bet> findByBaseballGame_Id(Long baseballGameId);
+    Optional<Bet> findByBaseballGame_IdAndMember_Id(Long baseballGameId, Long memberId);
 }

@@ -25,9 +25,13 @@ public class BetCommandService {
 
     public Bet createBet(Member member, Long baseballGameId, Long teamId) {
 
-        if(betRepository.findByBaseballGame_Id(baseballGameId).isPresent()) {
+        System.out.println(baseballGameId);
+        System.out.println(teamId);
+
+        if(betRepository.findByBaseballGame_IdAndMember_Id(baseballGameId, member.getId()).isPresent()) {
             throw new RestApiException(ErrorCode.ALREADY_BET_GAME);
         }
+
 
         BaseballGame baseballGame = baseballGameRepository.findById(baseballGameId)
                 .orElseThrow(() -> new RestApiException(ErrorCode.NOT_EXIST_GAME));
