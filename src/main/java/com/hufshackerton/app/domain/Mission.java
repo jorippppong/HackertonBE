@@ -21,7 +21,7 @@ public class Mission {
     @Column(nullable = false)
     private String content;
 
-    @OneToMany(mappedBy = "mission_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
 
 }
