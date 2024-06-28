@@ -4,7 +4,6 @@ import com.hufshackerton.app.domain.BaseballGame;
 import com.hufshackerton.app.domain.Bet;
 import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.domain.Team;
-import com.hufshackerton.app.web.dto.request.BetRequest;
 import com.hufshackerton.app.web.dto.response.BetResponse;
 import org.springframework.stereotype.Component;
 

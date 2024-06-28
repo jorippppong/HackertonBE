@@ -23,6 +23,7 @@ public class S3Uploader {
     @Value("${spring.servlet.multipart.max-file-size}")
     private String maxSizeString;
     private final String PROFILE_IMG_DIR = "profile/";
+    private final String MISSION_IMAGE_DIR = "mission/";
 
     // 프로필 사진 저장
     public String saveProfileImage(MultipartFile file){
@@ -30,6 +31,13 @@ public class S3Uploader {
             return "";
         }
         return saveFile(file, PROFILE_IMG_DIR);
+    }
+
+    public String saveMissionImage(MultipartFile file) {
+        if(file == null || file.isEmpty()){
+            return "";
+        }
+        return saveFile(file, MISSION_IMAGE_DIR);
     }
 
     // 단일 파일 저장

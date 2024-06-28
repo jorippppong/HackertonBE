@@ -18,6 +18,7 @@ public class AuthRequest {
         private String nickname;
         @NotBlank
         private String password;
+        Long teamId;
     }
 
     @Getter

@@ -24,5 +24,13 @@ public class MissionResponse {
         String content;
     }
 
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Getter
+    @Builder
+    public static class MissionResultDto {
+        private Boolean isCompleted;
+    }
+
 }
 
