@@ -3,8 +3,10 @@ package com.hufshackerton.app.service;
 import com.hufshackerton.app.converter.MemberConverter;
 import com.hufshackerton.app.domain.Donate;
 import com.hufshackerton.app.domain.Member;
+import com.hufshackerton.app.domain.Team;
 import com.hufshackerton.app.repository.DonateRepository;
 import com.hufshackerton.app.repository.MemberRepository;
+import com.hufshackerton.app.repository.TeamRepository;
 import com.hufshackerton.app.web.dto.request.AuthRequest;
 import com.hufshackerton.app.web.dto.response.AuthResponse;
 import com.hufshackerton.app.web.dto.response.MemberResponse;
@@ -26,9 +28,11 @@ public class MemberCommandService {
     private final JwtAuthProvider jwtAuthProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final DonateRepository donateRepository;
+    private final TeamRepository teamRepository;
 
     public Member signUpMember(AuthRequest.SignupDTO request) {
-        return memberRepository.save(MemberConverter.toMember(request));
+        Team team = teamRepository.findById(request.getTeamId()).orElseThrow(() -> new RestApiException(ErrorCode.NOT_EXIST_TEAM));
+        return memberRepository.save(MemberConverter.toMember(request, team));
     }
 
     public AuthResponse.TokenResponse login(AuthRequest.LoginDTO request) {
