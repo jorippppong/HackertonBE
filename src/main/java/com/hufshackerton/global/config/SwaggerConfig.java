@@ -19,23 +19,23 @@ public class SwaggerConfig {
                 .description("HUFS Summer Hackerton API 명세서")
                 .version("1.0.0");
 
-        String memberId = "memberId";
-        // SecuritySchemes 등록
-        Components components = new Components()
-                .addSecuritySchemes(memberId, new SecurityScheme()
-                        .name(memberId)
-                        .type(SecurityScheme.Type.APIKEY)
-                        .in(SecurityScheme.In.HEADER)
-                        .name("memberId"));
-        // API 요청헤더에 인증정보 포함
-        SecurityRequirement securityRequirement = new SecurityRequirement().addList(memberId);
+        String jwtSchemeName = "JWT";
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
 
+        Components components =
+                new Components()
+                        .addSecuritySchemes(
+                                jwtSchemeName,
+                                new SecurityScheme()
+                                        .name(jwtSchemeName)
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("Bearer")
+                                        .bearerFormat("JWT"));
 
         return new OpenAPI()
                 .addServersItem(new Server().url("/"))
                 .info(info)
                 .addSecurityItem(securityRequirement)
-                .components(components)
-                .addSecurityItem(securityRequirement);
+                .components(components);
     }
 }

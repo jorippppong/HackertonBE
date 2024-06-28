@@ -20,36 +20,6 @@ import java.util.Optional;
 @Slf4j
 public class AuthCommandService {
     private final MemberRepository memberRepository;
-    private final S3Uploader s3Uploader;
-    private final SecurityUtil securityUtil;
-
-    @Transactional
-    public Member signup(AuthRequest.SignupDTO dto) {
-        log.info(dto.getPassword());
-        String password = securityUtil.hashPassword(dto.getPassword());
-        Member newMember = Member.builder()
-                .email(dto.getEmail())
-                .nickname(dto.getNickname())
-                .password(password)
-                .build();
-        return memberRepository.save(newMember);
-    }
-
-    @Transactional
-    public Member login(AuthRequest.loginDTO dto) {
-        Optional<Member> optionalMember = memberRepository.findMemberByNickname(dto.getNickname());
-        if (optionalMember.isEmpty()) {
-            throw new RestApiException(ErrorCode.MEMBER_NOT_FOUND);
-        }
-        Member member = optionalMember.get();
-        log.info(member.getPassword());
-        log.info(securityUtil.hashPassword(dto.getPassword()));
-        if(securityUtil.checkPassword(dto.getPassword(), member.getPassword())){
-            return member;
-        }else{
-            throw new RestApiException(ErrorCode.PASSWORD_WRONG);
-        }
-    }
 
     @Transactional
     public void removeMember(Member member) {

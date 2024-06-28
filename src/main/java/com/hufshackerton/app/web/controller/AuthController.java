@@ -1,7 +1,9 @@
 package com.hufshackerton.app.web.controller;
 
+import com.hufshackerton.app.Converter.MemberConverter;
 import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.service.AuthCommandService;
+import com.hufshackerton.app.service.MemberCommandService;
 import com.hufshackerton.app.web.dto.AuthRequest;
 import com.hufshackerton.app.web.dto.AuthResponse;
 import com.hufshackerton.global.annotation.ExistEmail;
@@ -11,9 +13,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class AuthController {
     private final AuthCommandService authCommandService;
     private final SecurityUtil securityUtil;
+    private final MemberCommandService memberCommandService;
 
 //    @PostMapping("/signup")
 //    public ResponseEntity<AuthResponse.signupDTO> signup(
@@ -39,23 +45,27 @@ public class AuthController {
 //        );
 //    }
 
+    @Operation(summary = "회원가입 API", description = "회원가입을 진행합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "성공"),
+    })
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse.signupDTO> signup(
-            @RequestBody @Valid AuthRequest.SignupDTO dto
-    ){
-        Member member = authCommandService.signup(dto);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<AuthResponse.SignUpMemberResponse> signUpMember(@RequestBody AuthRequest.SignupDTO request) {
         return ResponseEntity.ok(
-                AuthResponse.signupDTO.builder().memberId(member.getId()).build()
-        );
+                MemberConverter.toSignUpMemberResponse(memberCommandService.signUpMember(request)));
     }
 
 
+
+    @Operation(summary = "로그인 API", description = "이메일, 비밀번호를 사용한 로그인을 진행합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "성공"),
+    })
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse.signupDTO> login(@RequestBody AuthRequest.loginDTO dto) {
-        Member member = authCommandService.login(dto);
-        return ResponseEntity.ok(
-                AuthResponse.signupDTO.builder().memberId(member.getId()).build()
-        );
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<AuthResponse.TokenResponse> loginMember(@RequestBody AuthRequest.LoginDTO request) {
+        return ResponseEntity.ok(memberCommandService.login(request));
     }
 
     @Operation(summary = "회원 탈퇴",
