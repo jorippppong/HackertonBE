@@ -1,6 +1,5 @@
 package com.hufshackerton.app.web.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,4 +22,20 @@ public class RankResponse {
         private Long todayVote;
         private Long totalVote;
     }
+
+    @Getter
+    @Builder
+    public static class getMemberByMission{
+        private List<MemberRankInfo> user;
+    }
+
+    @Getter
+    @Builder
+    public static class MemberRankInfo{
+        private Integer rank;
+        private String logoUrl;
+        private Long completeMission;
+        private Long totalVote;
+    }
+
 }

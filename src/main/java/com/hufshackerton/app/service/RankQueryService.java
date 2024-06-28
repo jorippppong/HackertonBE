@@ -1,7 +1,9 @@
 package com.hufshackerton.app.service;
 
+import com.hufshackerton.app.domain.Member;
 import com.hufshackerton.app.domain.Team;
 import com.hufshackerton.app.repository.*;
+import com.hufshackerton.app.web.dto.repo.SimpleMemberInfo;
 import com.hufshackerton.app.web.dto.repo.SimpleTeamInfo;
 import com.hufshackerton.app.web.dto.response.RankResponse;
 import com.hufshackerton.global.exception.ErrorCode;
@@ -20,8 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RankQueryService {
     private final TeamRankRepositoryImpl teamRankRepository;
+    private final MemberRankRepository memberRankRepository;
     private final TeamRepository teamRepository;
     private final BetRepository betRepository;
+    private final MemberRepository memberRepository;
 
     public RankResponse.getTeamByMissionDTO getTeamByMission(LocalDate localDate) {
         LocalDate firstDayOfMonth = localDate.with(TemporalAdjusters.firstDayOfMonth());
@@ -40,8 +44,33 @@ public class RankQueryService {
                     .totalVote(betRepository.countBetByBaseballGameDateBetweenAndTeam(firstDayOfMonth, lastDayOfMonth, team))
                     .build();
             teamRankInfos.add(teamDtoInfo);
+            rank++;
         }
 
         return RankResponse.getTeamByMissionDTO.builder().teams(teamRankInfos).build();
     }
+
+
+    public RankResponse.getMemberByMission getMemberByMission(LocalDate localDate){
+        LocalDate firstDayOfMonth = localDate.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayOfMonth = localDate.with(TemporalAdjusters.lastDayOfMonth());
+        List<SimpleMemberInfo> memberInfo = memberRankRepository.sortMemberByMission(firstDayOfMonth, lastDayOfMonth);
+
+        List<RankResponse.MemberRankInfo> memberRankInfos = new ArrayList<>();
+        int rank = 1;
+        for(SimpleMemberInfo m:memberInfo){
+            Member member = memberRepository.findById(m.getMemberId()).orElseThrow(() -> new RestApiException(ErrorCode.MEMBER_NOT_FOUND));
+            RankResponse.MemberRankInfo memberDtoInfo = RankResponse.MemberRankInfo.builder()
+                    .rank(rank)
+                    .logoUrl(member.getTeam().getImageUrl())
+                    .completeMission(m.getCompleteMissions())
+                    .totalVote(betRepository.countBetByBaseballGameDateBetweenAndTeam(firstDayOfMonth, lastDayOfMonth, member.getTeam()))
+                    .build();
+            memberRankInfos.add(memberDtoInfo);
+            rank++;
+        }
+
+        return RankResponse.getMemberByMission.builder().user(memberRankInfos).build();
+    }
+
 }

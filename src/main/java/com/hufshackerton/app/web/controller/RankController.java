@@ -24,4 +24,13 @@ public class RankController {
         RankResponse.getTeamByMissionDTO dto = rankQueryService.getTeamByMission(localDate);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/fan/mission")
+    public ResponseEntity<RankResponse.getMemberByMission> getMemberByMission(
+            @RequestParam("date") LocalDate localDate
+    ){
+        RankResponse.getMemberByMission dto = rankQueryService.getMemberByMission(localDate);
+        return ResponseEntity.ok(dto);
+    }
+
 }
