@@ -51,15 +51,15 @@ public class MissionController {
     @Operation(summary = "미션 수행 API", description = "미션 수행 사진을 받아 수행 여부를 결정합니다.")
     @ApiResponse(description = "성공", responseCode = "201")
     @PostMapping(
-            value = "/{missionId}/completed",
+            value = "/{membermissionId}/completed",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<MissionResponse.MissionResultDto> accomplishMission(
             @Parameter(hidden = true) @AuthMember Member member,
-            @PathVariable("membermissionId") Long missionId,
+            @PathVariable("membermissionId") Long memberMissionId,
             @RequestPart("image") MultipartFile missionImage) {
         MemberMission memberMission =
-                missionCommandService.accomplishMission(member, missionId, missionImage);
+                missionCommandService.accomplishMission(member, memberMissionId, missionImage);
         return ResponseEntity.ok(MissionConverter.toMissionResultDto(memberMission));
     }
 
